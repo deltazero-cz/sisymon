@@ -13,15 +13,17 @@ Only dependency: [jq 1.6](https://stedolan.github.io/jq/)
 
 Clone in this into a desired directory, i.e. `/var/www/html`
 
-Add following line into your virtualhosts' (sites-enabled) config  
+Add following lines into your virtualhosts' (sites-enabled) config  
 ```apacheconf
-ScriptAlias "/sisymon" "<YOUR_DIRECTORY>/sisymon/index.sh"
+SetEnvIf    Authorization "(.*)" HTTP_AUTHORIZATION=$1
+ScriptAlias "/sisymon"    "<YOUR_DIRECTORY>/sisymon/index.sh"
 ```
 
 Example config
 ```apacheconf
 <VirtualHost _default_:80>
   DocumentRoot /var/www/html
+  SetEnvIf    Authorization "(.*)" HTTP_AUTHORIZATION=$1
   ScriptAlias "/sisymon" "<YOUR_DIRECTORY>/sisymon/index.sh"
   ...
 </VirtualHost>
