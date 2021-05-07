@@ -42,6 +42,17 @@ $ sudo apt update && sudo apt install jq
 
 Don't forget to set your **auth bearer** in `config.ini` (see Configuration below). Default bearer is: sysimon21
 
+## Configuration
+
+Don't forget to `cp config.default.ini cp.ini`
+
+```ini
+[sisymon]
+auth_bearer="your_super_secret_auth_bearer"   # your super secret auth bearer
+services=("ssh" "apache2" "mysql" "ntp")      # list of services to monitor
+storage=("/", "/home")                        # list of mount paths to monitor
+```
+
 ## Example use
 
 ```bash
@@ -100,15 +111,4 @@ $ curl -s \
     }
   }
 }
-```
-
-## Configuration
-
-Don't forget to `cp config.default.ini cp.ini`
-
-```ini
-[sisymon]
-auth_bearer="your_super_secret_auth_bearer"   # your super secret auth bearer
-services=("ssh" "apache2" "mysql" "ntp")      # list of services to monitor
-storage=("/", "/home")                        # list of mount paths to monitor
 ```
