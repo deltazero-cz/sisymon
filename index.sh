@@ -16,7 +16,7 @@ read.uptime() { cat /proc/uptime | awk '{print $1}'; }
 
 read.loadavg() { jq -cR 'split(" ") | .[0:4] | .[0] = (.[0]|tonumber) | .[1] = (.[1]|tonumber) | .[2] = (.[2]|tonumber)' /proc/loadavg; }
 
-read.disks() {
+read.storage() {
   json='[]'
   while (("$#")); do
     file=$(df | grep -E "\s${1}$")
@@ -80,7 +80,7 @@ echo
 jq ".uptime = $(read.uptime)
   | .load = $(read.loadavg)
   | .memory = $(read.memory)
-  | .disks = $(read.disks "${disks[@]}")
+  | .storage = $(read.storage "${disks[@]}")
   | .services = $(read.services "${services[@]}")
 " -c <<<'{}'
 exit 0

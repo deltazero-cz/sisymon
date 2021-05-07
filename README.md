@@ -74,7 +74,7 @@ $ curl -s \
       "free": 764292
     }
   },
-  "disks": [
+  "storage": [
     {
       "device": "/dev/xvda1",
       "mount": "/",
@@ -85,8 +85,8 @@ $ curl -s \
   ],
   "services": {
     "ssh": {
-      "state": "active",           // active / inactive
-      "substate": "running",       // running / dead
+      "state": "active",           // active | inactive
+      "substate": "running",       // running | exited | dead
       "uptime": 33456255,          // seconds
       "tasks": 4,                  // total subprocesses
       "memory": 50470912           // in bytes, not kB
@@ -108,7 +108,7 @@ Don't forget to `cp config.default.ini cp.ini`
 
 ```ini
 [sisymon]
-auth_bearer="your_super_secret_auth_bearer"   # Your super secret auth bearer
+auth_bearer="your_super_secret_auth_bearer"   # your super secret auth bearer
 services=("ssh" "apache2" "mysql" "ntp")      # list of services to monitor
-disks=("/", "/home")                          # list of disks to monitor by mount paths
+storage=("/", "/home")                        # list of mount paths to monitor
 ```
