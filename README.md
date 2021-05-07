@@ -1,6 +1,6 @@
-# sysimon
+# sisymon
 
-Simpe System Monitoring API responder
+**Si**mpe **Sy**stem **Mon**itoring API responder
 
 A lightweight bash tool, intended as a CGI script
 for Apache or simillar on Linux environment. 
@@ -9,7 +9,7 @@ Responds with basic server vitals in JSON.
 
 Only dependency: [jq](https://stedolan.github.io/jq/)
 
-## Usage
+## Setup
 
 Clone in this into a desired directory, i.e. `/var/www/html`
 
@@ -18,7 +18,7 @@ Add following line into your virtualhosts' (sites-enabled) config
 ScriptAlias "/sisymon" "<YOUR_DIRECTORY>/sisymon/index.sh"
 ```
 
-Example:
+Example config
 ```apacheconf
 <VirtualHost _default_:80>
   DocumentRoot /var/www/html
