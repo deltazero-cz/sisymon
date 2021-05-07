@@ -89,7 +89,7 @@ $ curl -s \
       "substate": "running",
       "uptime": 33456255,          // seconds
       "tasks": 4,                  // total subprocesses
-      "memory": 50470912           // kB
+      "memory": 50470912           // in bytes, not kB
     },
     "apache2": {
       "active": "active",
