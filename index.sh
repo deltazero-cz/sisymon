@@ -80,7 +80,7 @@ echo
 jq ".uptime = $(read.uptime)
   | .load = $(read.loadavg)
   | .memory = $(read.memory)
-  | .storage = $(read.storage "${disks[@]}")
+  | .storage = $(read.storage "${storage[@]}")
   | .services = $(read.services "${services[@]}")
 " -c <<<'{}'
 exit 0
