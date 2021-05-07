@@ -7,7 +7,7 @@ for Apache or simillar on Linux environment.
 
 Responds with basic server vitals in JSON.
 
-Only dependency: [jq](https://stedolan.github.io/jq/)
+Only dependency: [jq 1.6](https://stedolan.github.io/jq/)
 
 ## Setup
 
@@ -31,6 +31,11 @@ Also, don't forget to enable `cgi` or `cgid` module
 ```bash
 $ sudo a2enmod cgid
 $ sudo service apache2 restart
+```
+
+Install `jq`
+```bash
+$ sudo apt update && sudo apt install jq
 ```
 
 Don't forget to set your **auth bearer** in `config.ini` (see Configuration below). Default bearer is: sysimon21

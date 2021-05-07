@@ -23,7 +23,7 @@ read.disks() {
     dev=$(awk '{print $1}' <<<"$file")
     usage=$(awk '{print $5}' <<<"$file")
     total=$(awk '{print $2}' <<<"$file")
-    free=$(awk '{print $3}' <<<"$file")
+    free=$(awk '{print $4}' <<<"$file")
     mount=$(awk '{print $6}' <<<"$file")
     [[ ! -z $dev ]] &&
       json=$(jq ". += [{ \"device\": \"${dev}\", \"mount\": \"${mount}\", \"usage\": \"${usage}\", \"total\": ${total}, \"free\": ${free} }]" <<<$json) ||
@@ -51,17 +51,16 @@ read.services() {
   json='{}'
   while (("$#")); do
     status=$(systemctl show "${1}")
-    active=$(echo "$status" | grep 'ActiveState' | cut -d "=" -f2)
-    if [[ $active == "active" ]]; then
-      item=$(jq ".active = \"${active}\"
-               | .substate = \"$(echo "$status" | grep 'SubState' | cut -d "=" -f2)\"
-               | .uptime = $(( $(date +%s) - $(date -d "$(echo "$status" | grep 'ExecMainStartTimestamp=' | cut -d "=" -f2)" +%s) ))
-               | .tasks = $(echo "$status" | grep 'TasksCurrent' | cut -d "=" -f2)
-               | .memory = $(echo "$status" | grep 'MemoryCurrent' | cut -d "=" -f2)" -c <<< '{}')
-    else
-      item=$(jq ".active = \"${active}\"
-               | .substate = \"$(echo "$status" | grep 'SubState' | cut -d "=" -f2)\"" -c <<< '{}')
-    fi
+    state=$(echo "$status" | grep 'ActiveState' | cut -d "=" -f2)
+    substate=$(echo "$status" | grep 'SubState' | cut -d "=" -f2)
+    tasks=$(echo "$status" | grep 'TasksCurrent' | cut -d "=" -f2)
+    memory=$(echo "$status" | grep 'MemoryCurrent' | cut -d "=" -f2)
+    uptime=$(( $(date +%s) - $(date -d "$(echo "$status" | grep 'ExecMainStartTimestamp=' | cut -d "=" -f2)" +%s) ))
+    item=$(jq ".state = \"${state}\"
+             | .substate = \"${substate}\"
+             | .uptime = ${uptime}
+             | .tasks = ${tasks:-null}
+             | .memory = ${meminfo:-null}" -c <<< '{}')
     json=$(jq ".[\"$1\"] = ${item}" <<<$json)
     shift
   done
