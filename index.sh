@@ -58,9 +58,11 @@ read.services() {
     memory=$(echo "$status" | grep 'MemoryCurrent' | cut -d "=" -f2)
     [[ "$memory" = "[not set]" ]] && memory=null
     uptime=$(( $(date +%s) - $(date -d "$(echo "$status" | grep 'ExecMainStartTimestamp=' | cut -d "=" -f2)" +%s) ))
+    [[ "$state" != "active" ]] && uptime=null
+
     item=$(jq ".state = \"${state}\"
              | .substate = \"${substate}\"
-             | .uptime = ${uptime}
+             | .uptime = ${uptime:-null}
              | .tasks = ${tasks:-null}
              | .memory = ${memory:-null}" -c <<< '{}')
     json=$(jq ".[\"$1\"] = ${item}" <<<$json)
