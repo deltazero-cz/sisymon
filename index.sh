@@ -60,7 +60,7 @@ read.services() {
              | .substate = \"${substate}\"
              | .uptime = ${uptime}
              | .tasks = ${tasks:-null}
-             | .memory = ${meminfo:-null}" -c <<< '{}')
+             | .memory = ${memory:-null}" -c <<< '{}')
     json=$(jq ".[\"$1\"] = ${item}" <<<$json)
     shift
   done
