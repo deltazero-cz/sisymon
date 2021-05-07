@@ -85,14 +85,14 @@ $ curl -s \
   ],
   "services": {
     "ssh": {
-      "active": "active",
-      "substate": "running",
+      "state": "active",           // active / inactive
+      "substate": "running",       // running / dead
       "uptime": 33456255,          // seconds
       "tasks": 4,                  // total subprocesses
       "memory": 50470912           // in bytes, not kB
     },
     "apache2": {
-      "active": "active",
+      "state": "active",
       "substate": "running",
       "uptime": 21330370,
       "tasks": 134,
