@@ -54,7 +54,9 @@ read.services() {
     state=$(echo "$status" | grep 'ActiveState' | cut -d "=" -f2)
     substate=$(echo "$status" | grep 'SubState' | cut -d "=" -f2)
     tasks=$(echo "$status" | grep 'TasksCurrent' | cut -d "=" -f2)
+    [[ "$tasks" = "[not set]" ]] && tasks=null
     memory=$(echo "$status" | grep 'MemoryCurrent' | cut -d "=" -f2)
+    [[ "$memory" = "[not set]" ]] && memory=null
     uptime=$(( $(date +%s) - $(date -d "$(echo "$status" | grep 'ExecMainStartTimestamp=' | cut -d "=" -f2)" +%s) ))
     item=$(jq ".state = \"${state}\"
              | .substate = \"${substate}\"
