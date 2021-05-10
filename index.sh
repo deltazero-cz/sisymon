@@ -5,6 +5,7 @@ source <(grep "=" config.default.ini)
 
 resp.error() {
   cat <<EOF
+Status: $1 $2
 Content-type: application/json
 
 { "error": $1, "message": "$2" }
