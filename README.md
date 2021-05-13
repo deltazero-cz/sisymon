@@ -94,21 +94,23 @@ $ curl -s \
       "free": 11749972
     }
   ],
-  "services": {
-    "ssh": {
+  "services": [
+    {
+      "name": "ssh",
       "state": "active",           // active | inactive
       "substate": "running",       // running | exited | dead
       "uptime": 33456255,          // seconds
       "tasks": 4,                  // total subprocesses
       "memory": 50470912           // in bytes, not kB
     },
-    "apache2": {
+    {
+      "name": "apache2",
       "state": "active",
       "substate": "running",
       "uptime": 21330370,
       "tasks": 134,
       "memory": 92745728
     }
-  }
+  ]
 }
 ```

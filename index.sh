@@ -26,9 +26,9 @@ read.storage() {
     total=$(awk '{print $2}' <<<"$file")
     free=$(awk '{print $4}' <<<"$file")
     mount=$(awk '{print $6}' <<<"$file")
-    [[ ! -z $dev ]] &&
-      json=$(jq ". += [{ \"device\": \"${dev}\", \"mount\": \"${mount}\", \"usage\": \"${usage}\", \"total\": ${total}, \"free\": ${free} }]" <<<$json) ||
-      json=$(jq '. += [null]' <<<$json)
+    [[ ! -z $dev ]] \
+      && json=$(jq ". += [{ \"device\": \"${dev}\", \"mount\": \"${mount}\", \"usage\": \"${usage}\", \"total\": ${total}, \"free\": ${free} }]" <<<$json) \
+      || json=$(jq '. += [null]' <<<$json)
     shift
   done
   echo $json
@@ -49,7 +49,7 @@ EOF
 }
 
 read.services() {
-  json='{}'
+  json='[]'
   while (("$#")); do
     status=$(systemctl show "${1}")
     state=$(echo "$status" | grep 'ActiveState' | cut -d "=" -f2)
@@ -61,12 +61,13 @@ read.services() {
     uptime=$(( $(date +%s) - $(date -d "$(echo "$status" | grep 'ExecMainStartTimestamp=' | cut -d "=" -f2)" +%s) ))
     [[ "$state" != "active" ]] && uptime=null
 
-    item=$(jq ".state = \"${state}\"
+    item=$(jq ".name = \"${1}\"
+             | .state = \"${state}\"
              | .substate = \"${substate}\"
              | .uptime = ${uptime:-null}
              | .tasks = ${tasks:-null}
              | .memory = ${memory:-null}" -c <<< '{}')
-    json=$(jq ".[\"$1\"] = ${item}" <<<$json)
+    json=$(jq ". += [${item}]" <<<$json)
     shift
   done
   echo $json
