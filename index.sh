@@ -22,6 +22,7 @@ echo
 jq ".uptime = $(read.uptime)
   | .load = $(read.loadavg)
   | .memory = $(read.memory)
+  | .raid = $(read.raid "${raid[@]}")
   | .storage = $(read.storage "${storage[@]}")
   | .services = $(read.services "${services[@]}")
 " -c <<<'{}'
