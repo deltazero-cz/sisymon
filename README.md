@@ -11,7 +11,7 @@ Only dependency: [jq 1.6](https://stedolan.github.io/jq/)
 
 ## Setup
 
-Clone in this into a desired directory, i.e. `/var/www/html`
+Clone this into a desired directory, i.e. `/var/www/html`
 
 Add following lines into your virtualhosts' (sites-enabled) config  
 ```apacheconf
@@ -51,6 +51,7 @@ Don't forget to `cp config.default.ini cp.ini`
 auth_bearer="your_super_secret_auth_bearer"   # your super secret auth bearer
 services=("ssh" "apache2" "mysql" "ntp")      # list of services to monitor
 storage=("/", "/home")                        # list of mount paths to monitor
+raid=("md0")                                  # list of mdadm raids
 ```
 
 ## Example use
@@ -85,6 +86,13 @@ $ curl -s \
       "free": 764292
     }
   },
+  "raid": [
+    {
+      "name": "/dev/md0",
+      "array": "active raid1 sdb[0] sdc[1]",
+      "status": "UU"
+    }
+  ],
   "storage": [
     {
       "device": "/dev/xvda1",
