@@ -67,6 +67,7 @@ $ curl -s \
 
 ```json5
 {
+  "hostname": "your.hostname.com",
   "uptime": 33455688.82,          // uptime in seconds
   "load": [
     0.15,                         // system load 1m average 

@@ -19,7 +19,8 @@ done
 echo "Content-type: application/json"
 echo
 
-jq ".uptime = $(read.uptime)
+jq ".hostname = $(hostname)
+  | .uptime = $(read.uptime)
   | .load = $(read.loadavg)
   | .memory = $(read.memory)
   | .raid = $(read.raid "${raid[@]}")
