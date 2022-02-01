@@ -3,7 +3,7 @@
 read.custom() {
   json='[]'
   while (("$#")); do
-    result=(./custom/"${1}")
+    result=$("./custom/${1}")
 
     item=$(jq ".name = \"${1}\"
              | .result = ${result:-null}" -c <<< '{}')
