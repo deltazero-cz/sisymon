@@ -52,6 +52,7 @@ auth_bearer="your_super_secret_auth_bearer"   # your super secret auth bearer
 services=("ssh" "apache2" "mysql" "ntp")      # list of services to monitor
 storage=("/", "/home")                        # list of mount paths to monitor
 raid=("md0")                                  # list of mdadm raids
+custom=("check.tunnel.open.sh")               # list of custom scripts to run in your 'custom' directory
 ```
 
 ## Example use
@@ -119,6 +120,12 @@ $ curl -s \
       "uptime": 21330370,
       "tasks": 134,
       "memory": 92745728
+    }
+  ],
+  "custom": [
+    {
+      "name": "check.tunnel.open.sh",
+      "result": true
     }
   ]
 }

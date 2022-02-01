@@ -26,5 +26,6 @@ jq ".hostname = \"$(hostname)\"
   | .raid = $(read.raid "${raid[@]}")
   | .storage = $(read.storage "${storage[@]}")
   | .services = $(read.services "${services[@]}")
+  | .custom = $(read.custom "${custom[@]}")
 " -c <<<'{}'
 exit 0
